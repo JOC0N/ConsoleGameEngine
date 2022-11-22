@@ -41,5 +41,12 @@ def file_read(filepath: str, line_number: int):
 
 def file_load_list(filepath: str):
     with open(filepath, 'r') as file:
-        file_list = file.read().splitlines()
-    return file_list
+        file2list = file.read().splitlines()
+    return file2list
+
+
+def file_save_list(filepath: str, list2file: list):
+    file_create(filepath)
+    for line in list2file:
+        file_write(filepath, line)
+    return True

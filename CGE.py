@@ -2,9 +2,9 @@ import CFH
 
 # CGE - Central Game Engine
 
-version = str(1.1)
+title, creator, version = str("Text Adventure"), str("JOC0N"), str("1.1")
 CFH_file = str("save.txt")
-save = []
+save_list = []
 
 # ----------
 
@@ -57,12 +57,12 @@ def output_list(text: list):
 def new_save():
     output("Starting new game...")
     CFH.file_create(CFH_file)
-    CFH.file_write(CFH_file, "-----Text Adventure-----by JOC0N-----Version:")
+    CFH.file_write(CFH_file, f"{title} --- by {creator} --- Version: ")
     CFH.file_write(CFH_file, version)
     return True
 
 
-def resume_save():
+def load_save():
     if not CFH.file_exists(CFH_file):
         output_list(["Save does not exist!", "Please make sure its in the same directory!"])
         return False
@@ -79,6 +79,16 @@ def resume_save():
     else:
         output("Resuming game...")
         for line in CFH.file_load_list(CFH_file):
-            save.append(line)
-        print(save)
+            save_list.append(line)
         return True
+
+
+def save():
+    answer = menu_yon("Save game?")
+    if answer == 1:
+        output("Saving game...")
+        CFH.file_save_list(CFH_file, save_list)
+        return True
+    if answer == 2:
+        output("Okay Bye!")
+        return False

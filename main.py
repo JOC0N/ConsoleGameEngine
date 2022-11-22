@@ -2,14 +2,15 @@ import CGE
 
 
 def main():
+    CGE.output(CGE.title)
     status = False
-    CGE.output("Text Adventure")
     while status is False:
         answer = CGE.menu_yon("Start a new game?")
         if answer == 1:
             status = CGE.new_save()
         if answer == 2:
-            status = CGE.resume_save()
+            status = CGE.load_save()
+    CGE.save()
 
 
 if __name__ == '__main__':
