@@ -1,0 +1,28 @@
+{
+    "main": {
+        "title": "Text Adventure"
+    },
+    "appearance": {
+        "choice_char_l": "[",
+        "choice_char_r": "]",
+        "choice_yes": "Yes",
+        "choice_no": "No"
+    },
+    "save": {
+        "save_new": "Starting new game...",
+        "save_restore": "Loading existing game...",
+        "save_question": "Save game?",
+        "save_accept": "Saving game...",
+        "save_deny": "Game not saved!"
+    },
+    "Error_save": {
+        "not_exists_1": "Save does not exist!", 
+        "not_exists_2": "Please make sure its in the same directory!",
+        "save_restore": "Loading existing game...",
+        "save_question": "Save game?",
+        "save_accept": "Saving game...",
+        "save_deny": "Game not saved!"
+    }
+
+
+}
