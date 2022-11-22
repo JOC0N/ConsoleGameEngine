@@ -1,8 +1,9 @@
+import CFH
 import CGE
 
 
 def main():
-    CGE.output(CGE.title)
+    CGE.output(CFH.json_read(CGE.CFH_json_lang, ["main", "title"]))
     status = False
     while status is False:
         answer = CGE.menu_yon("Start a new game?")

@@ -1,8 +1,11 @@
+import json
 import os
 
 
 # CFH - Central File Handler
 
+
+# TXT Files----------
 
 def file_exists(filepath: str):
     if os.path.exists(filepath) and os.path.isfile(filepath):
@@ -50,3 +53,12 @@ def file_save_list(filepath: str, list2file: list):
     for line in list2file:
         file_write(filepath, line)
     return True
+
+
+# JSON Files----------
+
+def json_read(filepath: str, value_path: list):
+    with open(filepath, "r") as file:
+        data = json.load(file)
+
+        return data[value_path[0]][value_path[1]]

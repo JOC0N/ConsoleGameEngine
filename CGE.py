@@ -2,9 +2,15 @@ import CFH
 
 # CGE - Central Game Engine
 
-title, creator, version = str("Text Adventure"), str("JOC0N"), str("1.1")
-CFH_file = str("save.txt")
+
+# ----------
+
+CGE_version = str("1.2")
+creator = str("JOC0N")
+CFH_txt_save = str("save.txt")
+CFH_json_lang = str("lang/en.json")
 save_list = []
+
 
 # ----------
 
@@ -20,20 +26,31 @@ def menu_filter(amount: int):
     return menu_answer
 
 
-def menu_options(question: str, options: list):
-    amount = int(len(options))
-    print(question)
+def menu_choice_create(options: list):
+    choice_amount = int(len(options))
     for index, option in enumerate(options):
-        print("[", index + 1, "] ", str(option))
-    return menu_filter(amount)
+        print(CFH.json_read(CFH_json_lang, ["appearance", "choice_char_l"]),
+              index + 1,
+              CFH.json_read(CFH_json_lang, ["appearance", "choice_char_r"]),
+              str(option)
+              )
+    return choice_amount
+
+
+def menu_options(question: str, options: list):
+    print(question)
+    temp = menu_choice_create(options)
+    return menu_filter(temp)
 
 
 def menu_yon(question: str):
-    amount = 2
     print(question)
-    print("[1] Yes")
-    print("[2] No")
-    return menu_filter(amount)
+    options = [
+        CFH.json_read(CFH_json_lang, ["appearance", "choice_yes"]),
+        CFH.json_read(CFH_json_lang, ["appearance", "choice_no"])
+    ]
+    temp = menu_choice_create(options)
+    return menu_filter(temp)
 
 
 def menu_text(question: str):
@@ -55,40 +72,42 @@ def output_list(text: list):
 
 
 def new_save():
-    output("Starting new game...")
-    CFH.file_create(CFH_file)
-    CFH.file_write(CFH_file, f"{title} --- by {creator} --- Version: ")
-    CFH.file_write(CFH_file, version)
+    output(CFH.json_read(CFH_json_lang, ["save", "save_new"]))
+    CFH.file_create(CFH_txt_save)
+    CFH.file_write(CFH_txt_save, f"{CFH.json_read(CFH_json_lang, ['main', 'title'])} --- by {creator} --- Version: ")
+    CFH.file_write(CFH_txt_save, CGE_version)
+    for line in CFH.file_load_list(CFH_txt_save):
+        save_list.append(line)
     return True
 
 
 def load_save():
-    if not CFH.file_exists(CFH_file):
+    if not CFH.file_exists(CFH_txt_save):
         output_list(["Save does not exist!", "Please make sure its in the same directory!"])
         return False
-    elif CFH.file_empty(CFH_file):
-        output(CFH_file + " is empty!")
+    elif CFH.file_empty(CFH_txt_save):
+        output(CFH_txt_save + " is empty!")
         return False
-    elif CFH.file_line_count(CFH_file) < 2:
-        output(CFH_file + " is corrupted or not complete!")
+    elif CFH.file_line_count(CFH_txt_save) < 2:
+        output(CFH_txt_save + " is corrupted or not complete!")
         return False
-    elif version == CFH.file_read(CFH_file, 2):
-        output_list([CFH_file + " is not valid!", "Please make sure its the same game version "])
-        output_list(["Current version: " + version, "Savefile version: " + version])
+    elif CFH.file_read(CFH_txt_save, 2) == CGE_version:
+        output_list([CFH_txt_save + " is not valid!", "Please make sure its the same game CGE_version "])
+        output_list(["Current CGE_version: " + CGE_version, "Savefile CGE_version: " + CGE_version])
         return False
     else:
-        output("Resuming game...")
-        for line in CFH.file_load_list(CFH_file):
+        output(CFH.json_read(CFH_json_lang, ['save', 'save_restore']))
+        for line in CFH.file_load_list(CFH_txt_save):
             save_list.append(line)
         return True
 
 
 def save():
-    answer = menu_yon("Save game?")
+    answer = menu_yon(CFH.json_read(CFH_json_lang, ['save', 'save_question']))
     if answer == 1:
-        output("Saving game...")
-        CFH.file_save_list(CFH_file, save_list)
+        output(CFH.json_read(CFH_json_lang, ['save', 'save_accept']))
+        CFH.file_save_list(CFH_txt_save, save_list)
         return True
     if answer == 2:
-        output("Okay Bye!")
+        output(CFH.json_read(CFH_json_lang, ['save', 'save_deny']))
         return False
