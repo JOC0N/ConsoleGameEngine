@@ -5,7 +5,7 @@ import CFH
 
 # ----------
 
-CGE_version = str("1.2")
+CGE_version = str("1.2").strip()
 creator = str("JOC0N")
 CFH_txt_save = str("save.txt")
 CFH_json_lang = str("lang/en.json")
@@ -37,6 +37,11 @@ def menu_choice_create(options: list):
     return choice_amount
 
 
+def menu_title():
+    output(CFH.json_read(CFH_json_lang, ["main", "title"]))
+    return True
+
+
 def menu_options(question: str, options: list):
     print(question)
     temp = menu_choice_create(options)
@@ -48,7 +53,7 @@ def menu_yon(question: str):
     options = [
         CFH.json_read(CFH_json_lang, ["appearance", "choice_yes"]),
         CFH.json_read(CFH_json_lang, ["appearance", "choice_no"])
-    ]
+        ]
     temp = menu_choice_create(options)
     return menu_filter(temp)
 
@@ -82,18 +87,22 @@ def new_save():
 
 
 def load_save():
+    save_version = CFH.file_read(CFH_txt_save, 2).strip()
+
     if not CFH.file_exists(CFH_txt_save):
-        output_list(["Save does not exist!", "Please make sure its in the same directory!"])
+        output_list([CFH.json_read(CFH_json_lang, ['Error_save', 'not_exists_1']),
+                     CFH.json_read(CFH_json_lang, ['Error_save', 'not_exists_2'])
+                     ])
         return False
     elif CFH.file_empty(CFH_txt_save):
-        output(CFH_txt_save + " is empty!")
+        output(CFH_txt_save + CFH.json_read(CFH_json_lang, ['Error_save', 'is_empty']))
         return False
     elif CFH.file_line_count(CFH_txt_save) < 2:
-        output(CFH_txt_save + " is corrupted or not complete!")
+        output(CFH_txt_save + CFH.json_read(CFH_json_lang, ['Error_save', 'file_corrupted']))
         return False
-    elif CFH.file_read(CFH_txt_save, 2) == CGE_version:
-        output_list([CFH_txt_save + " is not valid!", "Please make sure its the same game CGE_version "])
-        output_list(["Current CGE_version: " + CGE_version, "Savefile CGE_version: " + CGE_version])
+    elif CGE_version != save_version:
+        output_list([CFH_txt_save + CFH.json_read(CFH_json_lang, ['Error_save', 'CGE_version']),
+                     "CGE: " + CGE_version, CFH_txt_save + ": " + save_version])
         return False
     else:
         output(CFH.json_read(CFH_json_lang, ['save', 'save_restore']))
