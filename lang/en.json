@@ -21,7 +21,33 @@
         "is_empty": " is empty!",
         "file_corrupted": " is corrupted or not complete!",
         "CGE_version": " is not the same CGE version"
+    },
+    "empty_1": {
+        "empty_1": "",
+        "empty_2": "",
+        "empty_3": "",
+        "empty_4": "",
+        "empty_5": ""
+    },
+    "empty_1": {
+        "empty_1": "",
+        "empty_2": "",
+        "empty_3": "",
+        "empty_4": "",
+        "empty_5": ""
+    },
+    "empty_1": {
+        "empty_1": "",
+        "empty_2": "",
+        "empty_3": "",
+        "empty_4": "",
+        "empty_5": ""
+    },
+    "chp_1": {
+        "empty_1": "",
+        "empty_2": "",
+        "empty_3": "",
+        "empty_4": "",
+        "empty_5": ""
     }
-
-
 }

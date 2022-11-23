@@ -1,4 +1,3 @@
-import CFH
 import CGE
 
 
@@ -19,9 +18,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-# CFH.file_read(CFH_txt_save, 2) == CGE_version
-
-
-
