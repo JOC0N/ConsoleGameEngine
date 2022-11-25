@@ -79,6 +79,7 @@ def output_list(text: list):
     print()
 
 
+# Clear old save file and create a new one.
 def new_save():
     output(lang("save", "save_new"))
     CFH.file_create(CFH_txt_save)
@@ -89,20 +90,21 @@ def new_save():
     return True
 
 
+# Load the save file and checks if it's okay.
 def load_save():
     save_version = CFH.file_read(CFH_txt_save, 2).strip()
 
     if not CFH.file_exists(CFH_txt_save):
-        output_list([lang('Error_save', 'not_exists_1'), lang('Error_save', 'not_exists_2')])
+        output_list([lang('error_save', 'not_exists_1'), lang('error_save', 'not_exists_2')])
         return False
     elif CFH.file_empty(CFH_txt_save):
-        output(CFH_txt_save + lang('Error_save', 'is_empty'))
+        output(CFH_txt_save + lang('error_save', 'is_empty'))
         return False
     elif CFH.file_line_count(CFH_txt_save) < 2:
-        output(CFH_txt_save + lang('Error_save', 'file_corrupted'))
+        output(CFH_txt_save + lang('error_save', 'file_corrupted'))
         return False
     elif CGE_version != save_version:
-        output_list([CFH_txt_save + lang('Error_save', 'CGE_version'),
+        output_list([CFH_txt_save + lang('error_save', 'CGE_version'),
                      "CGE: " + CGE_version, CFH_txt_save + ": " + save_version])
         return False
     else:
@@ -112,11 +114,18 @@ def load_save():
         return True
 
 
+# Save the game without asking the player.
+def background_save():
+    CFH.file_save_list(CFH_txt_save, save_list)
+    return True
+
+
+# Save the game by asking the player to.
 def save():
     answer = menu_yon(lang('save', 'save_question'))
     if answer == 1:
         output(lang('save', 'save_accept'))
-        CFH.file_save_list(CFH_txt_save, save_list)
+        background_save()
         return True
     if answer == 2:
         output(lang('save', 'save_deny'))

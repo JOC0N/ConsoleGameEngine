@@ -1,20 +1,35 @@
+import random
+
 import CGE
 
 
-def main():
+def start_menu():
     status = False
-
     CGE.menu_title()
 
-    while status is False:
-        answer = CGE.menu_yon("Start a new game?")
+    while not status:
+        answer = CGE.menu_yon(CGE.lang("save", "new_game"))
         if answer == 1:
             status = CGE.new_save()
-        if answer == 2:
+        elif answer == 2:
             status = CGE.load_save()
 
-    CGE.save()
+
+def game():
+    answer = CGE.menu_options(CGE.lang("ex_1", "qu_1"),
+                              [CGE.lang("ex_1", "op_1"),
+                               CGE.lang("ex_1", "op_2"),
+                               CGE.lang("ex_1", "op_3")])
+    if answer == 1:
+        CGE.output(CGE.lang("ex_1", "out_1"))
+        CGE.save()
+    elif answer == 2:
+        CGE.save()
+    elif answer == 3:
+        CGE.output(CGE.lang("ex_1", "out_2"))
+        CGE.save()
 
 
 if __name__ == '__main__':
-    main()
+    start_menu()
+    game()

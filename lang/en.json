@@ -9,13 +9,15 @@
         "choice_no": "No"
     },
     "save": {
+        "new_game": "Start a new Game?",
         "save_new": "Starting new game...",
         "save_restore": "Loading existing game...",
+
         "save_question": "Save game?",
         "save_accept": "Saving game...",
         "save_deny": "Game not saved!"
     },
-    "Error_save": {
+    "error_save": {
         "not_exists_1": "Save does not exist!", 
         "not_exists_2": "Please make sure its in the same directory!",
         "is_empty": " is empty!",
@@ -29,25 +31,12 @@
         "empty_4": "",
         "empty_5": ""
     },
-    "empty_1": {
-        "empty_1": "",
-        "empty_2": "",
-        "empty_3": "",
-        "empty_4": "",
-        "empty_5": ""
-    },
-    "empty_1": {
-        "empty_1": "",
-        "empty_2": "",
-        "empty_3": "",
-        "empty_4": "",
-        "empty_5": ""
-    },
-    "chp_1": {
-        "empty_1": "",
-        "empty_2": "",
-        "empty_3": "",
-        "empty_4": "",
-        "empty_5": ""
+    "ex_1": {
+        "qu_1": "This is an example question. Do you like yogurt?",
+        "op_1": "I love it!",
+        "op_2": "I can eat it.",
+        "op_3": "Eww no hell!",
+        "out_1": "That's great. We are friends now",
+        "out_2": "That makes me sad. Please leave me alone"
     }
 }
